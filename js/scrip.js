@@ -72,6 +72,14 @@ fetchData()
             console.log(urun)
 
             sepet.push(urun)
+            
+            sepet.forEach(urun => {
+                const urunAdi = document.createElement('p')
+                urunAdi.textContent = urun.title
+            
+                cart.append(urunAdi)
+            
+            })  
 
             let sepetJSON = JSON.stringify(sepet)
             console.log(sepetJSON)
@@ -113,13 +121,17 @@ cartİcon.addEventListener('click', () =>{
 
 
 })
-
-sepet.forEach(urun => {
-    const urunAdi = document.createElement('p')
-    urunAdi.textContent = urun.title
-
-    card.append(urunAdi)
-
-})
-
 // ! Shopping cart bitiş
+
+let localSepet = localStorage.getItem('sepet')
+let normalSepet = JSON.parse(localSepet)
+
+// console.log(normalSepet)
+
+
+normalSepet.forEach(urun => {
+    const baslik = document.createElement('p')
+    baslik.textContent = urun.title
+    
+    cart.append(baslik)
+})

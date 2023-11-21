@@ -17,6 +17,8 @@ body{
     transition: all 1s linear;
     border-radius: 50px;
     top: 50px;
+    overflow: scroll;
+    padding: 25px;
 }
 
 .aktif{
