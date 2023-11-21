@@ -2,136 +2,224 @@
 //             .then(res=>res.json())
 //             .then(json=>console.log(json))
 
-
 // ! async await
 
-const row = document.querySelector('.row')
-let sepet =[]
+const row = document.querySelector(".row");
+let sepet = [];
 
-async function fetchData(){
-    try{
-        let responce = await fetch('https://fakestoreapi.com/products')
-        let data = await responce.json()
-        return data
-    }catch(error){
-        console.log(error)
-    }
+async function fetchData() {
+  try {
+    let responce = await fetch("https://fakestoreapi.com/products");
+    let data = await responce.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-fetchData()
+fetchData().then((data) => {
+  console.log(data);
+  // for(let i = 0; i < data.length; i++)
+  //     console.log(data[i].title);
+  // }
+  // let sepet =[]
 
-.then(data => {
-    
-    console.log(data)
-    // for(let i = 0; i < data.length; i++)
-    //     console.log(data[i].title);
-    // }
-    // let sepet =[]
+  data.forEach((urun) => {
+    // console.log(urun.title)
+    const col = document.createElement("div");
+    col.classList.add("col");
+    col.style.width = "250px";
+    // col.style.height ='400px'
 
+    const card = document.createElement("div");
+    card.style.width = "100%";
+    card.style.height = "100%";
+    card.style.border = "1px solid black";
+    card.style.background = "white";
 
-    data.forEach((urun) => {
-        // console.log(urun.title)
-        const col = document.createElement('div')
-        col.classList.add('col')
-        col.style.width ='250px'
-        // col.style.height ='400px'
+    const imgDiv = document.createElement("div");
+    imgDiv.style.width = "100%";
+    imgDiv.style.height = "250px";
 
-        const card = document.createElement('div')
-        card.style.width ='100%'
-        card.style.height ='100%'
-        card.style.border ='1px solid black'
-        card.style.background ='white'
+    const img = document.createElement("img");
 
-        const imgDiv = document.createElement('div')
-        imgDiv.style.width ='100%'
-        imgDiv.style.height ='250px'
+    img.src = urun.image;
+    img.style.width = "100%";
+    img.style.height = "100%";
 
-        const img = document.createElement('img')
+    const cardBody = document.createElement("div");
+    cardBody.style.width = "100%";
+    cardBody.style.height = "250px";
 
-        img.src = urun.image
-        img.style.width='100%'
-        img.style.height='100%'
+    const baslik = document.createElement("h5");
+    baslik.textContent = urun.title;
 
+    const aciklama = document.createElement("p");
+    aciklama.textContent = ` - ${urun.price} $`;
 
-        const cardBody = document.createElement('div')
-        cardBody.style.width='100%'
-        cardBody.style.height='250px'
+    const btn = document.createElement("button");
+    btn.classList.add("btn", "btn-warning");
+    btn.textContent = "Sepete Ekle";
 
-        const baslik = document.createElement('h5')
-        baslik.textContent = urun.title 
+    btn.addEventListener("click", () => {
+      console.log(urun);
 
-        const aciklama = document.createElement('p')
-        aciklama.textContent = ` - ${urun.price} $`
+      sepet.push(urun);
 
-        const btn = document.createElement('button')
-        btn.classList.add('btn', 'btn-warning')
-        btn.textContent = "Sepete Ekle"
+      sepet.forEach((urun) => {
+        const parentDiv = document.createElement("div");
+        parentDiv.style.width = "100%";
+        parentDiv.style.border = "1px solid black";
+        parentDiv.style.borderRadius = "10px";
+        parentDiv.style.display = "flex";
+        parentDiv.style.justifyContent = "space-between";
+        parentDiv.style.alignItems = "center";
+        parentDiv.style.marginTop = "10px";
+        parentDiv.style.padding = "10px";
 
+        const imgDiv = document.createElement("div");
+        imgDiv.style.width = "25%";
+        imgDiv.style.height = "80px";
+        imgDiv.style.overflow = "hidden";
 
-        btn.addEventListener('click', () => {
-            console.log(urun)
+        const img = document.createElement("img");
+        img.src = urun.image;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.borderRadius = "10px";
 
-            sepet.push(urun)
-            
-            sepet.forEach(urun => {
-                const urunAdi = document.createElement('p')
-                urunAdi.textContent = urun.title
-            
-                cart.append(urunAdi)
-            
-            })  
+        const baslik = document.createElement("p");
+        baslik.textContent = urun.title;
+        baslik.style.fontSize = "12px";
+        baslik.style.marginTop = "18px";
 
-            let sepetJSON = JSON.stringify(sepet)
-            console.log(sepetJSON)
+        const fiyat = document.createElement("p");
+        fiyat.textContent = urun.price + "$";
+        fiyat.style.fontSize = "15px";
+        fiyat.style.fontWeight = "bold";
+        fiyat.style.marginTop = "18px";
 
-            localStorage.setItem('sepet', sepetJSON)
+        const silmeBtn = document.createElement("i");
+        silmeBtn.classList.add("fa-solid", "fa-trash");
+        silmeBtn.addEventListener("click", function () {
+          console.log(this.parentElement);
+          let gorseldenSilme = this.parentElement;
+          gorseldenSilme.remove();
 
-            console.log(sepet)
-        })
+          console.log(normalSepet.indexOf(urun));
 
-        cardBody.append(baslik)
-        cardBody.append(aciklama)
-        cardBody.append(btn)
+          let urunİndex = normalSepet.indexOf(urun);
+          console.log(normalSepet.splice(urunİndex, 1));
+          console.log(normalSepet);
 
-        imgDiv.append(img)
+          let normalSepetJson = JSON.stringify(normalSepet);
+          localStorage.setItem("sepet", normalSepetJson);
+        });
 
-        card.append(imgDiv)
-        card.append(cardBody)
+        imgDiv.append(img);
 
+        parentDiv.append(imgDiv);
+        parentDiv.append(baslik);
+        parentDiv.append(fiyat);
+        parentDiv.append(silmeBtn);
 
-        col.appendChild(card)
+        cart.append(parentDiv);
+      });
 
+      let sepetJSON = JSON.stringify(sepet);
+      console.log(sepetJSON);
 
-        row.append(col)
-        
-    })
-    
-})
+      localStorage.setItem("sepet", sepetJSON);
 
+      console.log(sepet);
+    });
 
+    cardBody.append(baslik);
+    cardBody.append(aciklama);
+    cardBody.append(btn);
+
+    imgDiv.append(img);
+
+    card.append(imgDiv);
+    card.append(cardBody);
+
+    col.appendChild(card);
+
+    row.append(col);
+  });
+});
 
 // localStorage.clear()
 
-
 // ! Shopping cartı çekiyoruz
-const cartİcon = document.querySelector('.fa-cart-shopping')
-const cart = document.querySelector('#sepet')
-cartİcon.addEventListener('click', () =>{
-    cart.classList.toggle('aktif')
-
-
-})
+const cartİcon = document.querySelector(".fa-cart-shopping");
+const cart = document.querySelector("#sepet");
+cartİcon.addEventListener("click", () => {
+  cart.classList.toggle("aktif");
+});
 // ! Shopping cart bitiş
 
-let localSepet = localStorage.getItem('sepet')
-let normalSepet = JSON.parse(localSepet)
+let localSepet = localStorage.getItem("sepet");
+let normalSepet = JSON.parse(localSepet);
 
 // console.log(normalSepet)
 
+normalSepet.forEach((urun) => {
+  const parentDiv = document.createElement("div");
+  parentDiv.style.width = "100%";
+  parentDiv.style.border = "1px solid black";
+  parentDiv.style.borderRadius = "10px";
+  parentDiv.style.display = "flex";
+  parentDiv.style.justifyContent = "space-between";
+  parentDiv.style.alignItems = "center";
+  parentDiv.style.marginTop = "10px";
+  parentDiv.style.padding = "10px";
 
-normalSepet.forEach(urun => {
-    const baslik = document.createElement('p')
-    baslik.textContent = urun.title
-    
-    cart.append(baslik)
-})
+  const imgDiv = document.createElement("div");
+  imgDiv.style.width = "25%";
+  imgDiv.style.height = "80px";
+  imgDiv.style.overflow = "hidden";
+
+  const img = document.createElement("img");
+  img.src = urun.image;
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.borderRadius = "10px";
+
+  const baslik = document.createElement("p");
+  baslik.textContent = urun.title;
+  baslik.style.fontSize = "12px";
+  baslik.style.marginTop = "18px";
+
+  const fiyat = document.createElement("p");
+  fiyat.textContent = urun.price + "$";
+  fiyat.style.fontSize = "15px";
+  fiyat.style.fontWeight = "bold";
+  fiyat.style.marginTop = "18px";
+
+  const silmeBtn = document.createElement("i");
+  silmeBtn.classList.add("fa-solid", "fa-trash");
+  silmeBtn.addEventListener("click", function () {
+    console.log(this.parentElement);
+    let gorseldenSilme = this.parentElement;
+    gorseldenSilme.remove();
+
+    console.log(normalSepet.indexOf(urun));
+
+    let urunİndex = normalSepet.indexOf(urun);
+    console.log(normalSepet.splice(urunİndex, 1));
+    console.log(normalSepet);
+
+    let normalSepetJson = JSON.stringify(normalSepet);
+    localStorage.setItem("sepet", normalSepetJson);
+  });
+
+  imgDiv.append(img);
+
+  parentDiv.append(imgDiv);
+  parentDiv.append(baslik);
+  parentDiv.append(fiyat);
+  parentDiv.append(silmeBtn);
+
+  cart.append(parentDiv);
+});
