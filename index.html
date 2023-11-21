@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark position-sticky top-0 z-3">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              <li class="nav-item position-relative">
+                <a class="nav-link " aria-disabled="true">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+                <div id="sepet"></div>
               </li>
             </ul>
           </div>
@@ -58,8 +61,8 @@
       </div>
 
         <main style="min-height: 100vh; " class="bg-dark">
-            <div class="container">
-                <div class="row row-gap-3 row-cols-3">
+            <div class="container p-5">
+                <div class="row row-gap-3 row-cols-3 justify-content-center">
 
 
 
@@ -133,10 +136,10 @@
           
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-              © 2020 Copyright:
-              <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+              © 2023 Copyright:
+              <a class="text-white" href="https://mdbootstrap.com/">barancicek.dev@gmail.com</a>
             </div>
-            <!-- Copyright -->
+            <!-- Copyright -->  
           </footer>
     <script src="https://kit.fontawesome.com/90e60cee9a.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
